@@ -1,13 +1,13 @@
 package se.dzmitry.javawebdemo.controllers;
 
-import ch.qos.logback.core.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import se.dzmitry.javawebdemo.models.HockeyPlayerRepository;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
     @Autowired
     private HockeyPlayerRepository hockeyPlayerRepository;
 
@@ -21,8 +21,10 @@ public class HomeController {
     }
 
     @GetMapping("/profile")
-    public String profile(){
+    public String profile(Model model) {
+        String user = getLoggedInEmail();
+        model.addAttribute("user", user);
+
         return "profile";
     }
-
 }
